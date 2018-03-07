@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<?php
+session_start();
+$con = mysqli_connect("localhost","root","","bookstore");
+
+// Check connection
+if (mysqli_connect_errno())
+  {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
+if(isset($_POST['action']))
+{
+	$username = $_POST['username'];
+	$Password = $_POST['password'];
+
+	$sql="select Firstname,Lastname from customer where Username='$username' and Password='$Password'";
+
+	$result=mysqli_query($con,$sql);
+	$row=mysqli_fetch_array($result,MYSQLI_ASSOC);
+}
+if(!$row){
+	header("location:login1.html");
+	$_SESSION['message']="Username and Password combination incorrect";
+	}
+
+?>
+
+
+
+<html>
+    <head>
+     <!--Import Google Icon Font-->
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+     <!--Import materialize.css-->
+     <link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+	 <!-- Compiled and minified CSS -->
+	 <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">-->
+	 <!-- Compiled and minified JavaScript -->
+	 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+	 <!--Let browser know website is optimized for mobile-->
+     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+	
+	<body>
+	<!--Import jQuery before materialize.js-->
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+     <script type="text/javascript" src="js/materialize.min.js"></script>
+	<script>
+	$(document).ready(function(){
+    $(".button-collapse").sideNav();
+    });
+	</script>
+	
+	<script>
+	$(document).ready(function(){
+    $('ul.tabs').tabs();
+    });
+	</script>
+	<nav class="teal">
+		<div class="nav-wrapper">
+		<a href="#!" class="brand-logo center" >BookStore</a>
+		<a href="#!" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+		<ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="browse.html">Browse</a></li>
+        <li><a href="logout.html">Logout</a></li>
+		</ul>
+		<ul id="slide-out" class="side-nav">
+		<li><div class="user-view">
+      <div class="background">
+        <img src="homeimage.jpg">
+      </div>
+	  <?php
+	  
+	  
+	  $First=$row["Firstname"];
+	  $Last=$row["Lastname"];
+	  
+	  ?>
+      <a href="#!user"><img class="circle" src="propic1.jpg"></a>
+      <a href="#!name"><span class="while-text name"><?php echo $First." ".$Last ?></span></a>
+		</div></li>
+		<li><a href="profile.html">Edit Profile</a></li>
+		<li><div class="divider"></div></li>
+		<li><a href="payment.html">Payment Options</a></li>
+		<li><div class="divider"></div></li>
+		<li><a href="myorders">MyOrders</a></li>
+		</ul>
+		</div>
+	</nav>
+	<div class="container">
+	<div class="row">
+    <div class="col s12">
+      <ul class="tabs">
+        <li class="tab col s3"><a href="#Children">Children</a></li>
+        <li class="tab col s3"><a href="#Young">Young</a></li>
+        <li class="tab col s3"><a href="#Old">Old</a></li>
+      </ul>
+    </div>
+	</div>
+	
+	 <div id="Children" class="row">
+        <div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="children1.jpg">
+            </div>
+            <div class="card-content">
+              <p>Pete the Cat<br>Price : 100₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+	  
+        <div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="children2.jpg">
+            </div>
+            <div class="card-content">
+              <p>Walt Disney's Comics<br>Price : 150₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+	  
+        <div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="children3.jpg">
+            </div>
+            <div class="card-content">
+              <p>Histories<br>Price : 200₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+		
+		<div>
+		<div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="novel4.jpg">
+            </div>
+            <div class="card-content">
+              <p>The Dry<br>Price : 350₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+	  
+        <div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="novel5.jpg">
+            </div>
+            <div class="card-content">
+              <p>Chapel of ease<br>Price : 200₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+	  
+        <div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="novel6.jpg">
+            </div>
+            <div class="card-content">
+              <p>Game of Thrones<br>Price : 500₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+		</div>
+		
+		<div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="old1.jpg">
+            </div>
+            <div class="card-content">
+              <p>Our kind<br>Price : 225₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+		<div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="old2.jpg">
+            </div>
+            <div class="card-content">
+              <p>Wonder of aging<br>Price : 300₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+		<div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="novel1.jpg">
+            </div>
+            <div class="card-content">
+              <p>Same Page<br>Price : 400₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+		
+		
+      </div>
+	  
+	  <div id="Young" class="row">
+        <div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="novel4.jpg">
+            </div>
+            <div class="card-content">
+              <p>The Dry<br>Price : 350₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+		
+		<div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="children1.jpg">
+            </div>
+            <div class="card-content">
+              <p>Pete the Cat<br>Price : 100₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+	  
+        <div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="children2.jpg">
+            </div>
+            <div class="card-content">
+              <p>Walt Disney's Comics<br>Price : 150₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+	  
+        <div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="children3.jpg">
+            </div>
+            <div class="card-content">
+              <p>Histories<br>Price : 200₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+		
+	  
+        <div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="novel5.jpg">
+            </div>
+            <div class="card-content">
+              <p>Chapel of ease<br>Price : 200₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+	  
+        <div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="novel6.jpg">
+            </div>
+            <div class="card-content">
+              <p>Game of Thrones<br>Price : 500₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+      </div>
+	  <div id="Old" class="row">
+        <div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="old1.jpg">
+            </div>
+            <div class="card-content">
+              <p>Our kind<br>Price : 225₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+		<div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="old2.jpg">
+            </div>
+            <div class="card-content">
+              <p>Wonder of aging<br>Price : 300₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+		
+		<div class="col s12 m6 l3">
+          <div class="card small">
+            <div class="card-image">
+              <img src="novel6.jpg">
+            </div>
+            <div class="card-content">
+              <p>Game of Thrones<br>Price : 500₹<br></p>
+            </div>
+            <div class="card-action">
+              <a href="payment.html">BUY NOW</a>
+            </div>
+          </div>
+        </div>
+      </div>
+		
+		
+		
+		</div>
+	 
+	 
+	  </div> 
+	  <!--div class="black">
+	  <footer class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Contact Us<h5>
+                <div class = "row">
+				<div class ="col s6">
+				<p><font size="3" color="white">Himani Patil<br>himanipatil10@gmail.com</font></p>
+				</div>
+				<div class ="col s6">
+				<p><font size="3" color="white">Madhura Bartakke<br>madhura4bartakke@gmail.com</font></p>
+				</div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2017Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+		  </div>
+        </footer>
+	  </div-->
+	  <div class="black">
+	  <footer class="page-footer" style="background-color:teal">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Contact Us<h5>
+                <div class = "row">
+				<div class ="col s6">
+				<p><font size="3" color="white">Himani Patil<br>himanipatil10@gmail.com</font></p>
+				</div>
+				<div class ="col s6">
+				<p><font size="3" color="white">Madhura Bartakke<br>madhura4bartakke@gmail.com</font></p>
+				</div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2017Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+		  </div>
+        </footer>
+	  </div>
+	  
+	</body>
+</html>

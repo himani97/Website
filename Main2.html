@@ -1,0 +1,720 @@
+<?php
+session_start();
+//connect to database
+$db=mysqli_connect("localhost","root","","mydb");
+
+if(isset($_POST['action2']))
+{
+	$author=$_POST['select2'];
+	$category=$_POST['select1'];
+	$sql1="SELECT href,author FROM images WHERE author='".$author."' AND category='".$category."'";
+	$_SESSION['var']=$sql1;
+	header("location:Main4.html");
+}
+?>
+<?php
+$quotes = [
+[
+'author'=> 'Philip Roth',
+'text'=> 'The road to hell is paved with works-in-progress.',
+],
+
+[
+'author'=> 'Albert Einstein',
+'text'=> 'Two things are infinite: the universe and human stupidity; and I am not sure about the universe. ',
+],
+[
+'author'=> 'Robert Frost',
+'text'=> 'In three words I can sum up everything I have learned about life: it goes on. ',
+],
+
+[
+'author'=> 'J.K.Rowling',
+'text'=> 'If you want to know what a man likes, take a good look at how he treats his inferiors, not his equals.',
+],
+
+[
+'author'=> 'Lao Tze',
+'text'=> 'Watch your thoughts; they become words.
+Watch your words; they become actions.
+Watch your actions; they become habits.
+Watch your habits; they become character.
+Watch your character; it becomes your destiny.',
+
+],
+
+[
+'author'=> 'Mark Twain',
+'text'=> 'Twenty years from now you will be more disappointed by the things that you did not do than by the ones you did do, so throw off the bowlines, sail away from safe harbor, catch the trade winds in your sails.  Explore, Dream, Discover.',
+],
+[
+'author'=> 'Mark Twain',
+'text'=> 'The two most important days in your life are the day you are born and the day you find out why.',
+],
+
+[
+'author'=> 'Albert Einstein',
+'text'=> 'Not everything that can be counted counts and not everything that counts can be counted.',
+],
+[
+'author'=> 'William Wordsworth',
+'text'=> 'To me the meanest flower that blows can give thoughts that do often lie too deep for tears',
+],
+
+[
+'author'=> 'Mother Teresa',
+'text'=> 'It is easy to love the people far away. It is not always easy to love those close to us. It is easier to give a cup of rice to relieve hunger than to relieve the loneliness and pain of someone unloved in our home. Bring love into your home for this is where our love for each other must start',
+],
+
+[
+'author'=> 'Mother Teresa',
+'text'=> 'Please choose the way of peace. ... In the short term there may be winners and losers in this war that we all dread. But that never can, nor never will justify the suffering, pain and loss of life your weapons will cause.',
+]
+
+];
+
+$quote = $quotes[array_rand($quotes)];
+$quoteText = $quote['text'];
+$quoteAuthor = $quote['author'];
+?>
+<!DOCTYPE html>
+<html>
+    <head>
+		<!--Import Google Icon Font-->
+		<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<!--Import materialize.css-->
+		<link type="text/css" rel="stylesheet" href="css/materialize.css"  media="screen,projection"/>
+		<link rel='stylesheet prefetch' href='https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.css'>
+		<!--Let browser know website is optimized for mobile-->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+		<style>
+			.parallax-container {
+			height:400px;
+			}
+		</style>
+    </head>
+    <body>	 
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+		<script type="text/javascript" src="js/materialize.min.js"></script>
+		<script> $(document).ready(function(){
+		$(".button-collapse").sideNav();$('.carousel.carousel-slider').each(function() {
+			var view = $(this);
+			var firstImage = view.find('.carousel-item img').first();
+			var imageHeight = firstImage[0].naturalHeight;
+			if (imageHeight > 0) {
+			view.css('height', imageHeight / firstImage[0].naturalWidth * view.width());
+			}
+			else {
+			view.css('height', 400);
+			}
+			});$('.carousel.carousel-slider').carousel({fullWidth: true});});</script>
+		<script>
+			$(document).ready(function(){
+			$('.parallax').parallax();});
+		</script>
+		<nav class="nav-extended" style="background-color:#545D8E;height:140px;">
+			<div class="nav-wrapper">
+			<a href="Main.html" class="brand-logo center"><img src="Logo.jpg" style="height:60px;width:170px;margin-top:25px;box-shadow:0 0 40px;"/></a>
+			<a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+			<ul id="nav-mobile" class="right hide-on-med-and-down">
+			<li>Welcome <?php echo $_SESSION['username']; ?></li>
+			<li><a href="Main3.html">LogOut</a></li>
+			</ul>
+			<ul class="side-nav" id="mobile-demo">
+			<li>
+			<div class="background">
+			<img src="MatL1.jpg" style="height:200px;width:300px;"></div></li>
+			<li><div class="divider"></div></li>
+			<li class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+			<li>
+			<a class="collapsible-header">Categories<i class="material-icons">arrow_drop_down</i></a>
+			<div class="collapsible-body">
+				<ul>
+					<li><a href="links/categories/friendship.html">Friendship</a></li>
+					<li><a href="links/categories/love.html">Love</a></li>
+					<li><a href="links/categories/failure.html">Failure</a></li>
+					<li><a href="links/categories/anger.html">Anger</a></li>
+					<li><a href="links/categories/patriotism.html">Patriotism</a></li>
+					<li><a href="links/categories/success.html">Success</a></li>
+				  </ul>
+				</div>
+			  </li>
+			</ul>
+			</li>
+			<li><div class="divider"></div></li>
+			<li class="no-padding">
+			<ul class="collapsible collapsible-accordion">
+			  <li>
+				<a class="collapsible-header">Authors<i class="material-icons">arrow_drop_down</i></a>
+				<div class="collapsible-body">
+				  <ul>
+					<li><a href="links/authors/shakes1.html">William Shakespeare</a></li>
+					<li><a href="links/authors/albert.html">Albert Einstein</a></li>
+					<li><a href="links/authors/hitler.html">Adolf Hitler</a></li>
+					<li><a href="links/authors/john.html">John F. Kennedy</a></li>
+					<li><a href="links/authors/kalam.html">Abdul Kalam</a></li>
+					<li><a href="links/authors/gandhi/html">Mahatma Gandhi</a></li>
+					<li><a href="links/authors/king1.html">Martin Luther King</a></li>
+					<li><a href="links/authors/helen.html">Helen Geller</a></li>
+					</ul>
+				</div>
+			  </li>
+			</ul>
+			</li>
+			<li><div class="divider"></div></li>
+			<li><a href="ref.html">References</a></li>
+			</ul>
+		</div>
+		<div class="nav-content">
+		  <ul class="tabs tabs-transparent" style="margin-top:28px;">
+			<li class="tab"><a  href="#test0">Home</a></li>
+			<li class="tab"><a class="active" href="#test1">Discover</a></li>
+			<li class="tab"><a href="#test2">Meet The Team </a></li>
+			<li class="tab"><a href="#test3">Authors</a></li>
+			<li class="tab"><a href="#test4">Search</a></li>
+			
+		  </ul>
+		</div>
+	</nav>
+	<div id="login-form" class="webui-popover-content">
+        <form action="Main.html" method="post">
+            <div class="input-field">
+                <input type="text" name="username" placeholder="Username">
+            </div>
+            <div class="input-field">
+                <input type="password" name="password" placeholder="Password">
+            </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action">Login
+                <i class="material-icons right">send</i>
+            </button>
+        </form>
+    </div>
+	<script src='https://cdn.jsdelivr.net/jquery.webui-popover/1.2.1/jquery.webui-popover.min.js'></script>
+	<script>$('#login').webuiPopover({url:'#login-form'});</script>
+	<script>
+		$(document).ready(function(){
+      $('.slider').slider();
+    });
+		</script> 
+	
+	
+	<div id="test0" class="col s4 m12 l12">
+	<?php
+    if(isset($_SESSION['message']))
+    {
+		 echo "<div id='error_msg'>".$_SESSION['message']."</div>";
+         unset($_SESSION['message']);
+    }
+	?>
+		<blockquote>
+			<h5><?php echo $quoteText; ?> </h5>
+			<strong><?php echo $quoteAuthor; ?> </strong>
+		</blockquote>
+		<div class="slider">
+    <ul class="slides">
+      <li>
+        <img src="22.jpg"> <!-- random image -->
+        <div class="caption center-align">
+          <h3>Welcome to EnQuote</h3>
+          <h5 class="light grey-text text-lighten-3">Relive the greatness</h5>
+        </div>
+      </li>
+      <li>
+        <img src="13.jpg"> 
+        
+      </li>
+      <li>
+        <img src="15.jpg">
+      </li>
+      <li>
+        <img src="16.jpg"> 
+      </li>
+	  <li>
+        <img src="17.jpg"> 
+      </li>
+	  <li>
+        <img src="18.jpg">
+      </li>
+	  <li>
+        <img src="19.jpg"> 
+      </li>
+	  <li>
+        <img src="20.jpg"> 
+      </li>
+	  <li>
+        <img src="21.jpg"> 
+      </li>
+	  <li>
+        <img src="14.jpg"> 
+      </li>
+    </ul>
+  </div>
+		<div class="container" style="width:100%">
+			<div class="row">
+				<div class="col s12 m7 l4">
+				  <div class="card" style="width:400px;height:450px;margin-left:auto;margin-right:auto;">
+				  <div class="z-depth-5">
+					<div class="card-image">
+					  <img src="Home1.jpg" style="height:300px;width:400px;">
+					</div>
+					<div class="card-content" style="width:400px;height:100px;">
+					  <p>This website will let you cruise through a rich collection of hand-picked quotes from the greatest minds all over the world..!</p>
+					</div>
+					<div class="card-action" style="height:50px;">
+					  <a href="#">This is a link</a>
+					</div>
+				  </div>
+				  </div>
+				</div>
+				<div class="col s12 m7 l4">
+				  <div class="card" style="width:400px;height:450px;margin-left:auto;margin-right:auto;">
+				  <div class="z-depth-5">
+					<div class="card-image">
+					  <img src="Home3.jpg" style="height:300px;width:400px;">
+					</div>
+					<div class="card-content" style="width:400px;height:100px;">
+					  <p>Full of features including Login functiionality,Quotecopy button, Search functiionality and much more. Just SignUp and get enchanted..!</p>
+					</div>
+					<div class="card-action" style="height:50px;">
+					  <a href="#">This is a link</a>
+					</div>
+				  </div>
+				  </div>
+				</div>
+				<div class="col s12 m7 l4">
+				  <div class="card" style="width:400px;height:450px;margin-left:auto;margin-right:auto;">
+				  <div class="z-depth-5">
+					<div class="card-image">
+					  <img src="Home2.jpg" style="height:300px;width:400px;">
+					</div>
+					<div class="card-content" style="width:400px;height:100px;">
+					  <p>We have used Google's latest Material Design Guidelines and Materialize Framework. The result...? A website with a clean UI and high productivity.!</p>
+					</div>
+					<div class="card-action" style="height:50px;">
+					  <a href="#">This is a link</a>
+					</div>
+				  </div>
+				</div>
+				</div>
+				<div class="fixed-action-btn horizontal click-to-toggle">
+				<a id="menu" class="btn-floating btn-large red">
+				  <i class="material-icons">menu</i>
+				</a>
+				<ul>
+				  <li><a class="btn-floating red" href="Main6.html"><i class="material-icons">subject</i></a></li>
+				  <li><a class="btn-floating yellow darken-1" href="Main5.html"><i class="material-icons">format_quote</i></a></li>
+				  <li><a class="btn-floating green" href="signup.html"><i class="material-icons">recent_actors</i></a></li>
+				</ul>
+			  </div>
+			</div>
+		</div>
+	</div>
+	<div id="test1" class="col s4 m12 l12">
+		<div class="container" style="margin-top:20px;">
+				<div class="row" >
+					<div class="col s12 m12 l4">
+					 <div class="card"  style="width:350px;margin-left:auto;margin-right:auto;">
+						<div class="card-image">
+							<img src="../images/<?php 
+								include 'Connect.php';
+								$num=mt_rand(0,50);
+								$href= "SELECT href,author,quote FROM images WHERE id='".$num."'"; 
+								$query=mysqli_query($conn,$href);
+								$row = mysqli_fetch_array($query);
+								echo $row[0];
+								?>" style="height:350px; width:350px;">
+						</div>
+						<div class="card-action">
+							<a href="#" style="color:#000">-<?php echo $row[1]; ?><?php
+							$quote1=$row[2];
+							echo "<p style=\"font-size:0px;\" id=\"p1\">".$quote1;
+							echo "</p>"
+						?>
+						<button onclick="copyToClipboard('#p1')">Copy</button></a></a>
+						</div>
+					</div>
+					</div>
+					<div class="col s12 m12 l4">
+					<div class="card-panel" style="width:800px; height:140px; margin-top:10px; color:white; border-color:black; background-color:#EEEEEE;">
+					  <span class="black-text" style="font-size:20px;">"Never stop fighting until you arrive at your destined place - that is, the unique you. Have an aim in life, continuously acquire knowledge, work hard, and have perseverance to realise the great life."<br>
+					  <strong>Dr. A.P.J.Abdul Kalam</strong>
+					  </span>
+					</div>
+					
+					<div class="col s12 m12 l10">
+					  <div class="card darken-1" style="background-color:#CFD8DC">
+						<div class="card-content black-text" style="font-size:18px;">
+						  <p>"A Fool can become a Genius when he understands he is a Fool but. A Genius can become a Fool when he understands he is a Genius."</p>
+						  <strong>Dr. A.P.J.Abdul Kalam</strong>
+						</div>
+					  </div>
+					</div>
+
+					<div class="col s12 m12 l2">
+					  <div class="card darken-1" style="width:500px; background-color:#D7CCC8;">
+						<div class="card-content black-text" style="font-size:20px;">
+						  <p>"Four things to learn in life: To think clearly without hurry or confusion; To love everybody sincerely; To act in everything with the highest motives; To trust God unhesitatingly."</p>
+						  <strong>Helen Geller</strong>
+						</div>
+					  </div>
+					</div>
+				</div>
+			</div>
+			</div>
+			<div class="container" style="background-color:#fff">
+				<div class="row">
+					<div class="col s12 m12 l6">
+					<div class="card-panel " style="width:550px; height:200px; margin-top:10px;margin-left:-35px; background-color:#E0F7FA;">
+					  <span class="black-text" style="font-size:20px;">"Life is divided into three terms - that which was, which is, and which will be. Let us learn from the past to profit by the present, and from the present, to live better in the future."<br>
+						<strong>William Wordsworth</strong>
+						</span>
+						</div>
+						<div class="card-panel " style="width:550px; height:200px; margin-top:10px;margin-left:-35px; background-color:#BDBDBD;">
+					  <span class="black-text" style="font-size:20px;">"The art of leadership... consists in consolidating the attention of the people against a single adversary and taking care that nothing will split up that attention."<br>
+					  <strong>Adolf Hitler</strong>
+					  </span>
+					</div>
+					</div>
+					<div class="col s12 m12 l4">
+					 <div class="card"  style="width:350px;margin-left:auto;margin-right:auto;">
+						<div class="card-image">
+							<img src="../images/<?php 
+								include 'Connect.php';
+								$num=mt_rand(0,57);
+								$href= "SELECT href,author,quote FROM images WHERE id='".$num."'"; 
+								$query=mysqli_query($conn,$href);
+								$row = mysqli_fetch_array($query);
+								echo $row[0];
+								?>" style="height:350px; width:350px;">
+						</div>
+						<div class="card-action">
+							<a href="#" style="color:#000">-<?php echo $row[1]; ?><?php
+							$quote1=$row[2];
+							echo "<p style=\"font-size:0px;\" id=\"p1\">".$quote1;
+							echo "</p>"
+						?>
+						<button onclick="copyToClipboard('#p1')">Copy</button></a></a>
+						</div>
+					</div>
+					</div>
+					<div class="col s12 m12 l2">
+						<div class="card-panel" style="width:200px; height:380px;background-color:#E0F7FA;">
+						  <span class="black-text" style="font-size:20px;">"The world is too much with us; late and soon, getting and spending, we lay waste our powers: Little we see in Nature that is ours."<br>
+						  <strong>William Wordsworth</strong>
+						  </span>
+						</div>
+					</div>
+				<div class="row">
+					<div class="col s12 m12 l4" style="margin-left:-30px;margin-top:30px;">
+					  <div class="card" style="height:150px;width:400px;background-color:#BDBDBD;">
+						<div class="card-content" style="font-size:22px;">
+						  <p>"It is good to have an end to journey toward, but it is the journey that matters in the end."</p>
+						  <strong>Ursula K.Le Guin</strong>
+						</div>
+					  </div>
+					  <div class="card" style="height:190px;background-color:#9e9e9e;margin-left:3px;margin-top:15px;width:400px">
+						<div class="card-content" style="font-size:22px;">
+						  <p>"The mediocre teacher tells. The good teacher explains. The superior teacher demonstrates. The great teacher inspires."</p>
+						<strong> William Arthur Ward</strong>
+						</div>
+					  </div>
+					</div>
+					<div class="col s12 m12 l4">
+					 <div class="card"  style="width:350px;margin-left:auto;margin-right:auto;">
+						<div class="card-image">
+							<img src="../images/<?php 
+								include 'Connect.php';
+								$num=mt_rand(0,57);
+								$href= "SELECT href,author,quote FROM images WHERE id='".$num."'"; 
+								$query=mysqli_query($conn,$href);
+								$row = mysqli_fetch_array($query);
+								echo $row[0];
+								?>" style="height:350px; width:350px;">
+						</div>
+						<div class="card-action">
+							<a href="#" style="color:#000">-<?php echo $row[1]; ?><?php
+							$quote1=$row[2];
+							echo "<p style=\"font-size:0px;\" id=\"p1\">".$quote1;
+							echo "</p>"
+						?>
+						<button onclick="copyToClipboard('#p1')">Copy</button></a></a>
+						</div>
+					</div>
+					</div>
+					<div class="col s12 m12 l4">
+					 <div class="card"  style="width:350px;margin-left:auto;margin-right:auto;">
+						<div class="card-image">
+							<img src="../images/<?php 
+								include 'Connect.php';
+								$num=mt_rand(0,57);
+								$href= "SELECT href,author,quote FROM images WHERE id='".$num."'"; 
+								$query=mysqli_query($conn,$href);
+								$row = mysqli_fetch_array($query);
+								echo $row[0];
+								?>" style="height:350px; width:350px;">
+						</div>
+						<div class="card-action">
+							<a href="#" style="color:#000">-<?php echo $row[1]; ?><?php
+							$quote1=$row[2];
+							echo "<p style=\"font-size:0px;\" id=\"p1\">".$quote1;
+							echo "</p>"
+						?>
+						<button onclick="copyToClipboard('#p1')">Copy</button></a></a>
+						</div>
+					</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row">
+				<div class="col s12 m12 l4" style="margin-left:-95px;">
+				<div class="card" style="height:190px;background-color:#9e9e9e;margin-left:3px;margin-top:15px;width:400px">
+						<div class="card-content" style="font-size:22px;">
+						  <p>"Remember, the storm is a good opportunity for the pine and the cypress to show their strength and their stability."</p>
+						<strong>Ho Chi Minh</strong>
+						</div>
+					  </div>
+				</div>
+				<div class="col s12 m12 l4" style="margin-left:85px;">
+				<div class="card" style="height:190px;background-color:#9e9e9e;margin-left:3px;margin-top:15px;width:350px">
+						<div class="card-content" style="font-size:22px;">
+						  <p>"The fear of death is the most unjustified of all fears, for there's no risk of accident for someone who's dead."</p>
+						<strong>Albert Einstein</strong>
+						</div>
+					  </div>
+				</div>
+				<div class="col s12 m12 l2" style="margin-left:15px;margin-top:10px;">
+				  <div class="card" style="width:400px;background-color:#9e9e9e;">
+					<div class="card-content" style="font-size:22px;">
+					  <p>"The only thing worse than being blind is having sight but no vision."</p>
+					  <strong>Helen Keller </strong>
+					</div>
+				  </div>
+				</div>
+				<div class="col s12 m12 l6">
+			  <div class="card blue-grey darken-1" style="margin-left:-95px;width:1200px;">
+				<div class="card-content white-text" style="font-size:22px;">
+				  <p>"Let every nation know, whether it wishes us well or ill, that we shall pay any price, bear any burden, meet any hardship, support any friend, oppose any foe to assure the survival and the success of liberty."</p>
+				<strong>John F. Kennedy</strong>
+				</div>
+			  </div>
+			</div>
+				
+				</div>
+		</div>
+			<?php
+    if(isset($_SESSION['message']))
+    {
+		 echo "<div id='error_msg'>".$_SESSION['message']."</div>";
+         unset($_SESSION['message']);
+    }
+	?>
+			</div>
+		</div>
+	<div id="test2" class="col s12">
+		<div class="container" style="margin-top:30px">
+			<b>Meet the team</b><br>
+			<div style="background-color:yellow;font-size:30px;width:300px;">
+				Manor Deshmukh<br>
+				Roll No-15101A0021
+			</div >
+			<div style="background-color:red;font-size:30px;width:300px;margin-left:300px;">
+				SriPriya Madhavan<br>
+				Roll No-15101A0029
+			</div>
+			<div style="background-color:blue;font-size:30px;width:300px;margin-left:600px;">
+				Akash Gupta<br>
+				Roll No-15101A0027
+			</div>
+			<div style="background-color:pink;font-size:30px;width:300px;margin-left:900px;">
+				Anisha Mathais<br>
+				Roll No-15101A0028
+			</div>
+			
+		</div>
+	</div>
+	<div id="test3" class="col s12">
+	<div class="parallax-container">
+			<div class="parallax">
+				<img src="images/authors/11.jpg">
+			</div>
+		 </div>
+		<div class="section white">
+			<div class="row container">
+				<h2 class="header">William Shakespeare</h2>
+				<p class="grey-text text-darken-3 lighten-3">William Shakespeare was an English poet, playwright, and actor, widely regarded as the greatest writer in the English language and the world's pre-eminent dramatist.He is often called England's national poet, and the "Bard of Avon".His extant works, including collaborations, consist of approximately 38 plays,154 sonnets, two long narrative poems, and a few other verses, some of uncertain authorship. His plays have been translated into every major living language and are performed more often than those of any other playwright.</p>
+			</div>
+		</div>
+		<div class="parallax-container">
+			<div class="parallax">
+				<img src="images/authors/2.jpg">
+			</div>
+		</div>
+		<div class="section white">
+			<div class="row container">
+				<h2 class="header">William Wordsworth</h2>
+				<p class="grey-text text-darken-3 lighten-3">William Wordsworth was a major English Romantic poet who, with Samuel Taylor Coleridge, helped to launch the Romantic Age in English literature with their joint publication Lyrical Ballads(1798).Wordsworth's magnum opus is generally considered to be The Prelude, a semiautobiographical poem of his early years that he revised and expanded a number of times. It was posthumously titled and published, before which it was generally known as "the poem to Coleridge".</p>
+			</div>
+		</div>
+		<div class="parallax-container">
+			<div class="parallax">
+				<img src="images/authors/31.jpg">
+			</div>
+		</div>
+		<div class="section white">
+			<div class="row container">
+				<h2 class="header">Albert Einstein</h2>
+				<p class="grey-text text-darken-3 lighten-3">Albert Einstein was a German-born theoretical physicist. He developed the theory of relativity, one of the two pillars of modern physics (alongside quantum mechanics). Einstein's work is also known for its influence on the philosophy of science.</p>
+			</div>
+		</div>
+		<div class="parallax-container">
+			<div class="parallax">
+				<img src="images/authors/4.jpg">
+			</div>
+		</div>
+		<div class="section white">
+			<div class="row container">
+				<h2 class="header">Abdul Kalam</h2>
+				<p class="grey-text text-darken-3 lighten-3">Abdul Kalam better known as A.P.J. Abdul Kalam was the 11th President of India.In his book India 2020, Kalam strongly advocated an action plan to develop India into a "knowledge superpower" and a developed nation by the year 2020. He regarded his work on India's nuclear weapons programme as a way to assert India's place as a future superpower.</p>
+			</div>
+		</div>
+		<div class="parallax-container">
+			<div class="parallax">
+				<img src="images/authors/5.jpg">
+			</div>
+		</div>
+		<div class="section white">
+			<div class="row container">
+				<h2 class="header">Mahatma Gandhi</h2>
+				<p class="grey-text text-darken-3 lighten-3">Mohandas Karamchand Gandhi was the preeminent leader of the Indian independence movement in British-ruled India. Employing nonviolent civil disobedience, Gandhi led India to independence and inspired movements for civil rights and freedom across the world.Gandhi was a prolific writer. One of Gandhi's earliest publications, Hind Swaraj, published in Gujarati in 1909, is recognised as the intellectual blueprint of India's independence movement. The book was translated into English the next year, with a copyright legend that read "No Rights Reserved".For decades he edited several newspapers including Harijan in Gujarati, in Hindi and in the English language; Indian Opinion while in South Africa and, Young India, in English, and Navajivan, a Gujarati monthly, on his return to India. Later, Navajivan was also published in Hindi. In addition, he wrote letters almost every day to individuals and newspapers.</p>
+			</div>
+		</div>
+		<div class="parallax-container">
+			<div class="parallax">
+				<img src="images/authors/61.jpg">
+			</div>
+		</div>
+		<div class="section white">
+			<div class="row container">
+				<h2 class="header">John F Kennedy</h2>
+				<p class="grey-text text-darken-3 lighten-3">John Fitzgerald "Jack" Kennedy (May 29, 1917 – November 22, 1963), commonly referred to by his initials JFK, was an American politician who served as the 35th President of the United States from January 1961 until his assassination in November 1963.</p>
+			</div>
+		</div>
+		<div class="parallax-container">
+			<div class="parallax">
+				<img src="images/authors/71.jpg">
+			</div>
+		</div>
+		<div class="section white">
+			<div class="row container">
+				<h2 class="header">Adolf Hitler</h2>
+				<p class="grey-text text-darken-3 lighten-3">Adolf Hitler was a German politician who was the leader of the Nazi Party, Chancellor of Germany from 1933 to 1945, and Führer ("Leader") of Nazi Germany from 1934 to 1945. As dictator of the German Reich, he initiated World War II in Europe with the invasion of Poland in September 1939 and was central to the Holocaust.</p>
+			</div>
+		</div>
+		<div class="parallax-container">
+			<div class="parallax">
+				<img src="images/authors/81.jpg">
+			</div>
+		</div>
+		<div class="section white">
+			<div class="row container">
+				<h2 class="header">Helen Keller</h2>
+				<p class="grey-text text-darken-3 lighten-3">Helen Adams Keller was an American author, political activist, and lecturer. She was the first deaf-blind person to earn a bachelor of arts degree.Keller wrote a total of 12 published books and several articles.At age 22, Keller published her autobiography, The Story of My Life (1903), with help from Sullivan and Sullivan's husband, John Macy. It recounts the story of her life up to age 21 and was written during her time in college.</p>
+			</div>
+		</div>
+		<div class="parallax-container">
+			<div class="parallax">
+				<img src="images/authors/91.jpg">
+			</div>
+		</div>
+		<div class="section white">
+			<div class="row container">
+				<h2 class="header">Martin Luther King Jr</h2>
+				<p class="grey-text text-darken-3 lighten-3">Martin Luther King Jr. was an American Baptist minister and activist who was a leader in the Civil Rights Movement. He is best known for his role in the advancement of civil rights using nonviolent civil disobedience based on his Christian beliefs.</p>
+			</div>
+		</div>
+	</div>
+	<div id="test4" class="col s12">
+		<div class="container">
+			<div class="row">
+				<div class="col s12 m12 l4">
+					<form name="search" action="#" method="post">
+						<br>
+						<div class="row">
+							<div class="input-field col s12">
+								<select name="select1">
+								  <option value="" disabled selected>Choose your option</option>
+								  <option value="friendship">Friendship</option>
+								  <option value="love">Love</option>
+								  <option value="failure">Failure</option>
+								  <option value="anger">Anger</option>
+								  <option value="patriotism">Patriotism</option>
+								  <option value="success">Success</option>
+								</select>
+								<label>Category</label>
+							  </div>
+						  </div>
+						  <br>
+						  <div class="row">
+							<div class="input-field col s12">
+								<select name="select2">
+								  <option value="" disabled selected>Choose your option</option>
+								  <option value="ALBERT EINSTEIN">Albert Einstein</option>
+								  <option value="WILLIAM SHAKESPEARE">William Shakespeare</option>
+								  <option value="Dr.A.P.J.ABDUL KALAM">Abdul Kalam</option>
+								  <option value="MAHATMA GANDHI">Mahatma Gandhi</option>
+								  <option value="MARTIN LUTHER KING JR.">Martin Luther King</option>
+								  <option value="ADOLF HITLER">Adolf Hitler</option>
+								  <option value="HELEN KELLER">Helen Keller</option>
+								  <option value="JOHN F KENNEDY">John F Kennedy</option>
+								</select>
+								<label>Author</label>
+							  </div>
+						  </div>
+						  <div class="row">
+							<button class="btn waves-effect waves-light" type="submit" name="action2">Submit
+							<i class="material-icons right">send</i>
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function() {
+    $('select').material_select();
+  });
+	</script>
+	<footer class="page-footer" style="background-color:#424242;">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Thank You..!</h5>
+                <p class="grey-text text-lighten-4">Your support will let us grow</p>
+              </div>
+              <div class="col l4 offset-l2 s12">
+                <h5 class="white-text">Follow Us</h5>
+                <ul>
+                  <li><a class="grey-text text-lighten-3" href="#!">Manor Deshmukh</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">SriPriya Madhavan</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Akash Gupta</a></li>
+                  <li><a class="grey-text text-lighten-3" href="#!">Anisha Mathais</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            ©DragoonKing
+            <a class="grey-text text-lighten-4 right" href="ref.html">References</a>
+            </div>
+          </div>
+        </footer>
+		
+    </body>
+</html>
+        

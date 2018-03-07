@@ -1,0 +1,103 @@
+<?php
+session_start();
+$con = mysqli_connect("localhost","root","","bookstore");
+
+// Check connection
+if (mysqli_connect_errno())
+  {
+  echo "Failed to connect to MySQL: " . mysqli_connect_error();
+  }
+  
+  if(isset($_POST['action']))
+{
+	$genre = $_POST['genre'];
+	$author = $_POST['author'];
+}
+  
+  
+  ?>
+<!DOCTYPE html>
+<html>
+<head>
+      <!--Import Google Icon Font-->
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+		<!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+      <!--Let browser know website is optimized for mobile-->
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+</head>
+<body>
+	<!--Import jQuery before materialize.js-->
+     <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+     <script type="text/javascript" src="js/materialize.min.js"></script>
+	 <nav class="teal">
+		<div class="nav-wrapper">
+		<a href="#" class="brand-logo center">BookStore</a>
+		<ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="startpagewithoutany.html">Home</a></li>  
+		<li><a href="logout.html">Logout</a></li>
+		</ul>
+		</div>
+	</nav>
+	<div class="container">
+      <table>
+        <thead>
+          <tr>
+              <th>Name</th>
+              <th>Genre</th>
+              <th>Author</th>
+          </tr>
+        </thead>
+		
+		<tbody>
+		  <?php
+
+				$sql="SELECT name,genre,author FROM books where Genre='$genre'||author='$author'";
+				$result=mysqli_query($con,$sql);
+				//$row=mysqli_fetch_array($result,MYSQLI_ASSOC);
+				if ($result->num_rows > 0) {
+				while($row = $result->fetch_assoc()) {
+					echo "<tr><td>{$row['name']}</td><td>{$row['genre']}</td><td>{$row['author']}</td></tr>\n";
+						//echo "Reader ID" . $row["R_id"]. "Book ID " . $row["B_id"]. "Issue Date" . $row["Issue_date"]."Due Date".$row['Due_date']."<br>";
+				}
+				}
+			?>
+	</tbody>
+		
+      </table>
+	</div>
+	
+	<div class="black">
+	  <footer class="page-footer" style="background-color:teal">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Contact Us<h5>
+                <div class = "row">
+				<div class ="col s6">
+				<p><font size="3" color="white">Himani Patil<br>himanipatil10@gmail.com</font></p>
+				</div>
+				<div class ="col s6">
+				<p><font size="3" color="white">Madhura Bartakke<br>madhura4bartakke@gmail.com</font></p>
+				</div>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2017Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+		  </div>
+        </footer>
+	  </div>
+	
+</body>
+	
+	
+</html>
